@@ -12,7 +12,7 @@ router.post("/addLetter", controller.addLetter);
 router.delete("/deleteVocabulary", controller.deleteVocabulary);
 router.delete("deleteLetter", controller.deleteLetter);
 router.post("/createSet", controller.createSet);
-router.get("/getVocabularySet", controller.getVocabularySet);
+router.post("/getVocabularySet", controller.getVocabularySet);
 router.post("/addVocabularySet", controller.addVocabularySet);
 router.post("/addLetterSet", controller.addLetterSet);
 router.delete("/deleteVocabularySet", controller.deleteVocabularySet);
