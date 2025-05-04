@@ -17,5 +17,7 @@ router.post("/addVocabularySet", controller.addVocabularySet);
 router.post("/addLetterSet", controller.addLetterSet);
 router.delete("/deleteVocabularySet", controller.deleteVocabularySet);
 router.delete("/deleteLetterSet", controller.deleteLetterSet);
+router.get("/getAllSet", controller.getAllSet);
+router.delete("/deleteSet", controller.deleteSet);
 
 module.exports = router;

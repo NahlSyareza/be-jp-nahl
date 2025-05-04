@@ -159,6 +159,26 @@ const deleteLetterSet = async (req, res) => {
   }
 };
 
+const getAllSet = async (req, res) => {
+  try {
+    const q = await repository.getAllSet();
+
+    return baseRes(res, true, 200, "Retrieved all set!", q);
+  } catch (e) {
+    return baseRes(res, false, 500, `Error: ${e}`, []);
+  }
+};
+
+const deleteSet = async (req, res) => {
+  try {
+    const q = await repository.deleteSet(req.body);
+
+    return baseRes(res, true, 200, "Deleted set!", q);
+  } catch (e) {
+    return baseRes(res, false, 500, `Error: ${e}`, []);
+  }
+};
+
 module.exports = {
   getAllVocabulary,
   getVocabularyLatin,
@@ -175,4 +195,6 @@ module.exports = {
   deleteVocabularySet,
   deleteLetterSet,
   getVocabularyRandom,
+  getAllSet,
+  deleteSet,
 };

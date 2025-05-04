@@ -132,12 +132,38 @@ const deleteLetter = async (r) => {
   }
 };
 
+const getAllSet = async (r) => {
+  try {
+    const c = await db.pool.connect();
+
+    const q1 = await c.query("SELECT * FROM set");
+
+    return q1.rows;
+  } catch (e) {
+    return e;
+  }
+};
+
 const createSet = async (r) => {
   try {
     const c = await db.pool.connect();
 
     const q1 = await c.query("INSERT INTO set (name) VALUES ($1) RETURNING *", [
       r.name,
+    ]);
+
+    return q1.rows;
+  } catch (e) {
+    return e;
+  }
+};
+
+const deleteSet = async (r) => {
+  try {
+    const c = await db.pool.connect();
+
+    const q1 = await c.query("DELETE FROM set WHERE uuid=$1 RETURNING *", [
+      r.uuid,
     ]);
 
     return q1.rows;
@@ -235,4 +261,6 @@ module.exports = {
   addLetterSet,
   deleteVocabularySet,
   deleteLetterSet,
+  getAllSet,
+  deleteSet,
 };
