@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 app.use(express.json());
 
@@ -10,6 +11,8 @@ const trainingRoutes = require("../src/routes/training.route");
 
 app.use("/user", userRoutes);
 app.use("/training", trainingRoutes);
+
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("にほんごをわかりません!");
