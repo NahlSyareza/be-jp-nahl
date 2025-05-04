@@ -53,13 +53,33 @@ const addVocabulary = async (req, res) => {
   }
 };
 
-const addWord = async (req, res) => {
+const addLetter = async (req, res) => {
   try {
-    const q = await repository.addWord(req.query);
+    const q = await repository.addLetter(req.query);
 
     return baseRes(res, true, 200, "Added new word!", q);
   } catch (e) {
     return baseRes(res, false, 500, `Error: ${e}`, null);
+  }
+};
+
+const deleteVocabulary = async (req, res) => {
+  try {
+    const q = await repository.deleteVocabulary(req.body);
+
+    return baseRes(res, true, 200, "Deleted vocabulary!", q);
+  } catch (e) {
+    return baseRes(res, false, 500, `Error: ${e}`, null);
+  }
+};
+
+const deleteLetter = async (req, res) => {
+  try {
+    const q = await repository.deleteLetter(req.body);
+
+    return baseRes(res, true, 200, "Deleted letter!", q);
+  } catch (e) {
+    return baseRes(res, false, 500, `Error: ${e}`, []);
   }
 };
 
@@ -87,9 +107,39 @@ const addVocabularySet = async (req, res) => {
   try {
     const q = await repository.addVocabularySet(req.body);
 
-    return baseRes(res, true, 200, "Added vocabulary to set!", q);
+    return baseRes(res, true, 200, "Added item to vocabulary set!", q);
   } catch (e) {
     return baseRes(res, false, 500, `Error: ${e}`, null);
+  }
+};
+
+const addLetterSet = async (req, res) => {
+  try {
+    const q = await repository.addLetterSet(req.body);
+
+    return baseRes(res, true, 200, "Added item to letter set!", q);
+  } catch (e) {
+    return baseRes(res, false, 500, `Error: ${e}`, null);
+  }
+};
+
+const deleteVocabularySet = async (req, res) => {
+  try {
+    const q = await repository.deleteVocabularySet(req.body);
+
+    return baseRes(res, true, 200, "Deleted item from vocabulary set!", q);
+  } catch (e) {
+    return baseRes(res, false, 500, `Error: ${e}`, []);
+  }
+};
+
+const deleteLetterSet = async (req, res) => {
+  try {
+    const q = await repository.deleteLetterSet(req.body);
+
+    return baseRes(res, true, 200, "Deleted item from letter set!", q);
+  } catch (e) {
+    return baseRes(res, false, 500, `Error: ${e}`, []);
   }
 };
 
@@ -99,8 +149,13 @@ module.exports = {
   getVocabularyJapanese,
   getVocabularyEnglish,
   addVocabulary,
-  addWord,
+  addLetter,
+  deleteVocabulary,
+  deleteLetter,
   createSet,
   getVocabularySet,
   addVocabularySet,
+  addLetterSet,
+  deleteVocabularySet,
+  deleteLetterSet,
 };

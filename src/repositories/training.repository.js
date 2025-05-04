@@ -70,7 +70,7 @@ const addVocabulary = async (r) => {
   }
 };
 
-const addWord = async (r) => {
+const addLetter = async (r) => {
   try {
     const c = await db.pool.connect();
 
@@ -79,6 +79,36 @@ const addWord = async (r) => {
       r.japanese,
       r.clf,
     ]);
+
+    return q1.rows;
+  } catch (e) {
+    return e;
+  }
+};
+
+const deleteVocabulary = async (r) => {
+  try {
+    const c = await db.pool.connect();
+
+    const q1 = await c.query(
+      "DELETE FROM vocabulary WHERE japanese=$1 RETURNING *",
+      [r.japanese]
+    );
+
+    return q1.rows;
+  } catch (e) {
+    return e;
+  }
+};
+
+const deleteLetter = async (r) => {
+  try {
+    const c = await db.pool.connect();
+
+    const q1 = await c.query(
+      "DELETE FROM letter WHERE japanese=$1 RETURNING *",
+      [r.japanese]
+    );
 
     return q1.rows;
   } catch (e) {
@@ -120,7 +150,7 @@ const addVocabularySet = async (r) => {
     const c = await db.pool.connect();
 
     const q1 = await c.query(
-      "INSERT INTO vocabulary_set (parent_set,japanese) VALUES ($1,$2) RETURNING *",
+      "INSERT INTO vocabulary_set (parent_set,item) VALUES ($1,$2) RETURNING *",
       [r.uuid, r.item]
     );
 
@@ -130,8 +160,44 @@ const addVocabularySet = async (r) => {
   }
 };
 
+const addLetterSet = async (r) => {
+  try {
+    const c = await db.pool.connect();
+
+    const q1 = await c.query(
+      "INSERT INTO letter_set (parent_set,item) VALUES ($1,$2) RETURNING *",
+      [r.uuid, r.item]
+    );
+
+    return q1.rows;
+  } catch (e) {}
+};
+
 const deleteVocabularySet = async (r) => {
   try {
+    const c = await db.pool.connect();
+
+    const q1 = await c.query(
+      "DELETE FROM vocabulary_set WHERE parent_set=$1 AND item=$2 RETURNING *",
+      [r.uuid, r.item]
+    );
+
+    return q1.rows;
+  } catch (e) {
+    return e;
+  }
+};
+
+const deleteLetterSet = async (r) => {
+  try {
+    const c = await db.pool.connect();
+
+    const q1 = await c.query(
+      "DELETE FROM letter_set WHERE parent_set=$1 AND item=$2 RETURNING *",
+      [r.uuid, r.item]
+    );
+
+    return q1.rows;
   } catch (e) {
     return e;
   }
@@ -143,8 +209,13 @@ module.exports = {
   getVocabularyJapanese,
   getVocabularyEnglish,
   addVocabulary,
-  addWord,
+  addLetter,
+  deleteVocabulary,
+  deleteLetter,
   createSet,
   getVocabularySet,
   addVocabularySet,
+  addLetterSet,
+  deleteVocabularySet,
+  deleteLetterSet,
 };
