@@ -33,6 +33,22 @@ const getVocabularyJapanese = async (req, res) => {
   }
 };
 
+const getVocabularyRandom = async (req, res) => {
+  try {
+    const q = await repository.getVocabularyRandom(req.query);
+
+    return baseRes(
+      res,
+      true,
+      200,
+      `Retrieved ${req.query.limit} random vocabularies!`,
+      q
+    );
+  } catch (e) {
+    return baseRes(res, false, 500, `Error: ${e}`, []);
+  }
+};
+
 const getVocabularyEnglish = async (req, res) => {
   try {
     const q = await repository.getVocabularyEnglish(req.body);
@@ -158,4 +174,5 @@ module.exports = {
   addLetterSet,
   deleteVocabularySet,
   deleteLetterSet,
+  getVocabularyRandom,
 };

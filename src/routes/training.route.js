@@ -6,6 +6,7 @@ router.get("/getAllVocabulary", controller.getAllVocabulary);
 router.get("/getVocabularyLatin", controller.getVocabularyLatin);
 router.get("/getVocabularyJapanese", controller.getVocabularyJapanese);
 router.get("/getVocabularyEnglish", controller.getVocabularyEnglish);
+router.get("/getVocabularyRandom", controller.getVocabularyRandom);
 router.post("/addVocabulary", controller.addVocabulary);
 router.post("/addLetter", controller.addLetter);
 router.delete("/deleteVocabulary", controller.deleteVocabulary);

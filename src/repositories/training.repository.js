@@ -55,6 +55,23 @@ const getVocabularyEnglish = async (r) => {
   }
 };
 
+const getVocabularyRandom = async (r) => {
+  try {
+    const c = await db.pool.connect();
+
+    console.log(r.limit);
+
+    const q1 = await c.query(
+      "SELECT * FROM vocabulary ORDER BY RANDOM() LIMIT $1",
+      [r.limit]
+    );
+
+    return q1.rows;
+  } catch (e) {
+    return e;
+  }
+};
+
 const addVocabulary = async (r) => {
   try {
     const c = await db.pool.connect();
@@ -74,11 +91,10 @@ const addLetter = async (r) => {
   try {
     const c = await db.pool.connect();
 
-    const q1 = await c.query("INSERT INTO letter VALUES ($1,$2,$3) RETURNING *", [
-      r.latin,
-      r.japanese,
-      r.clf,
-    ]);
+    const q1 = await c.query(
+      "INSERT INTO letter VALUES ($1,$2,$3) RETURNING *",
+      [r.latin, r.japanese, r.clf]
+    );
 
     return q1.rows;
   } catch (e) {
@@ -208,6 +224,7 @@ module.exports = {
   getVocabularyLatin,
   getVocabularyJapanese,
   getVocabularyEnglish,
+  getVocabularyRandom,
   addVocabulary,
   addLetter,
   deleteVocabulary,
