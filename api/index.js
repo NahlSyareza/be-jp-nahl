@@ -9,15 +9,15 @@ require("dotenv").config();
 const userRoutes = require("../src/routes/user.route");
 const trainingRoutes = require("../src/routes/training.route");
 
-app.use("/user", userRoutes);
-app.use("/training", trainingRoutes);
-
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    // origin: "http://127.0.0.1/",
     methods: "GET,POST,PUT,DELETE",
   })
 );
+
+app.use("/user", userRoutes);
+app.use("/training", trainingRoutes);
 
 app.get("/", (req, res) => {
   res.send("にほんごをわかりません!");
