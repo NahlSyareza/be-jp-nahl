@@ -74,7 +74,7 @@ const addLetter = async (r) => {
   try {
     const c = await db.pool.connect();
 
-    const q1 = await c.query("INSERT INTO word VALUES ($1,$2,$3) RETURNING *", [
+    const q1 = await c.query("INSERT INTO letter VALUES ($1,$2,$3) RETURNING *", [
       r.latin,
       r.japanese,
       r.clf,
