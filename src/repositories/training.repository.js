@@ -119,14 +119,19 @@ const addVocabularySet = async (r) => {
   try {
     const c = await db.pool.connect();
 
-    console.log(r.list);
-
     const q1 = await c.query(
-      "INSERT INTO vocabulary_set (parent_set, japanese) SELECT $1, unnest($2::text[]) RETURNING *",
-      [r.uuid, r.list]
+      "INSERT INTO vocabulary_set (parent_set,japanese) VALUES ($1,$2) RETURNING *",
+      [r.uuid, r.item]
     );
 
     return q1.rows;
+  } catch (e) {
+    return e;
+  }
+};
+
+const deleteVocabularySet = async (r) => {
+  try {
   } catch (e) {
     return e;
   }
