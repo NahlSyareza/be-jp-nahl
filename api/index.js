@@ -14,7 +14,7 @@ app.use("/training", trainingRoutes);
 
 app.use(
   cors({
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: "GET,POST,PUT,DELETE",
   })
 );
 
